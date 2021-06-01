@@ -1,6 +1,17 @@
-import { Link } from 'react-router-dom';
+import React, { Fragment } from 'react';
+import { Link, withRouter } from 'react-router-dom';
+import { isAuthenticated, logout } from '../helpers/auth';
 
-const Header = () => {
+const Header = ({ history }) => {
+
+
+    const handleLogout = evt => {
+        logout(() => {
+            history.push('/signin');
+        });
+    }
+
+
     const showNavigation = () => (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <Link className="navbar-brand" to="/">Logo</Link>
@@ -10,15 +21,44 @@ const Header = () => {
 
         <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
             <ul className="navbar-nav ml-auto mt-2 mt-lg-0">
-            <li className="nav-item">
-                <Link className="nav-link" to="/">Home </Link>
-            </li>
-            <li className="nav-item">
-                <Link className="nav-link" to="/signup">SignUp </Link>
-            </li>
-            <li className="nav-item">
-                <Link className="nav-link" to="signin">SignIn</Link>
-            </li>
+                {!isAuthenticated() && (
+                    <Fragment>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/">Home </Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/signup">SignUp </Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="signin">SignIn</Link>
+                        </li>
+                    </Fragment>
+                )}
+
+                {!isAuthenticated()&& isAuthenticated().role ===0 && (
+                    <Fragment>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/user/dashboard">Dashboard </Link>
+                        </li>
+                    </Fragment>
+                )}
+
+                {!isAuthenticated()&& isAuthenticated().role ===1 && (
+                    <Fragment>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/admin/dashboard">Dashboard </Link>
+                        </li>
+                    </Fragment>
+                )}
+
+                {isAuthenticated() && (
+                    <Fragment>
+                        <li className="nav-item">
+                            <button className="btn btn-link text-secondary text-decoration-none pl-0" onClick={handleLogout}>Logout</button>
+                        </li>
+                    </Fragment>
+                )}
+                
             </ul>
         </div>
         </nav>
@@ -28,4 +68,4 @@ const Header = () => {
 
 };
 
-export default Header;
+export default withRouter(Header);
