@@ -8,7 +8,7 @@ const authRoutes = require('./routes/auth');
 app.use(cors());
 app.use(morgan('dev'));
 app.use(express.json());
-app.use('/api/auth', authRoutes);
+app.use('/api/auth', authRoutes); 
 
 connectDB();
 

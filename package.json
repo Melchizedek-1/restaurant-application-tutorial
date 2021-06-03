@@ -23,6 +23,5 @@
   "devDependencies": {
     "concurrently": "^6.2.0",
     "morgan": "^1.10.0"
-  },
-  "proxy": "http://localhost:5000"
+  }
 }

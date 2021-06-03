@@ -71,6 +71,9 @@ const Signin = () => {
                 })
                 .catch(err => {
                     console.log('signin api function error: ', err);
+                    setFormData({
+                        ...formData, loading: false, errorMsg: err.response.data.errorMessage,
+                    });
                 })
     
         }
