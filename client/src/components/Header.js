@@ -35,7 +35,7 @@ const Header = ({ history }) => {
                     </Fragment>
                 )}
 
-                {!isAuthenticated()&& isAuthenticated().role ===0 && (
+                {isAuthenticated()&& isAuthenticated().role ===0 && (
                     <Fragment>
                         <li className="nav-item">
                             <Link className="nav-link" to="/user/dashboard"><i className="fas fa-home"></i> Dashboard </Link>
@@ -43,7 +43,7 @@ const Header = ({ history }) => {
                     </Fragment>
                 )}
 
-                {!isAuthenticated()&& isAuthenticated().role ===1 && (
+                {isAuthenticated()&& isAuthenticated().role ===1 && (
                     <Fragment>
                         <li className="nav-item">
                             <Link className="nav-link" to="/admin/dashboard"><i className="fas fa-home"></i> Dashboard </Link>

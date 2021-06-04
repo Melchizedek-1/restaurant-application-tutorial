@@ -17,4 +17,5 @@ const UserRoute = ({ component: Component, ...rest }) => {
     )
 };
 
+
 export default UserRoute;

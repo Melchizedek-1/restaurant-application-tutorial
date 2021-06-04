@@ -3,7 +3,7 @@ import React from 'react';
 const AdminDashboard = () => {
 
 
-    const showHeader = () => {
+    const showHeader = () => (
         <div className='bg-dark text-white py-4'>
             <div className='container'>
                 <div className='row'>
@@ -15,10 +15,10 @@ const AdminDashboard = () => {
                 </div>
             </div>
         </div>
-    };
+    );
 
 
-    const showActionBtns = () => {
+    const showActionBtns = () => (
         <div className='bg-light my-2'>
             <div className='container'>
                 <div className='row pb-3'>
@@ -43,15 +43,15 @@ const AdminDashboard = () => {
                 </div>
             </div>
         </div>
-    };
+    );
 
 
     return (
         <section>
             {showHeader()}
             {showActionBtns()}
-            </section>
-    );
-};
+        </section>
+    )
+}; 
 
 export default AdminDashboard;
