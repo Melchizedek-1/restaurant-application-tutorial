@@ -1,15 +1,30 @@
-import React, { Fragment, useState } from 'react';
-import { createCategory } from '../api/category';
+import React, { Fragment, useEffect, useState } from 'react';
+import { createCategory, getCategories } from '../api/category';
 import isEmpty from 'validator/lib/isEmpty';
 import { showErrorMsg, showSuccessMsg } from '../helpers/message';
 import { showLoading } from '../helpers/loading';
 
 const AdminDashboard = () => {
 
+    const [categories, setCategories] = useState(null);
     const [category, setCategory] = useState('');
     const [errorMsg, setErrorMsg] = useState('');
     const [successMsg, setSucessMsg] = useState('');
     const [loading, setLoading] = useState('');
+
+    useEffect(() => {
+        loadCategories();
+    }, [loading])
+
+    const loadCategories = async () => {
+        await getCategories()
+            .then(response => {
+                setCategories(response.data.categories)
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
 
     const handleMessages = (evt) => {
         setErrorMsg('');
@@ -166,9 +181,9 @@ const AdminDashboard = () => {
                                             <label className='text-secondary'>Category</label>
                                             <select className='custom-select mr-sm-2'>
                                                 <option>Choose one...</option>
-                                                <option>Pasta</option>
-                                                <option>Dessert</option>
-                                                <option>Kuku</option>
+                                                {categories && categories.map((c) => (
+                                                    <option key={c._id} value={c._id}>{c.category}</option>
+                                                ))}
                                             </select>
                                         </div>
                                         <div className='form-group col-md-6'>
