@@ -116,11 +116,20 @@ const AdminDashboard = () => {
             formData.append('productQty', productQty);
 
             createProduct(formData)
-                .then(response => {
-                    console.log('Server response', response);
+                .then((response) => {
+                    setProductData({
+                        productImage: null,
+                        productName: '',
+                        productDesc: '',
+                        productPrice: '',
+                        productCategory: '',
+                        productQty: '',
+                    })
+                    setSucessMsg(response.data.successMessage)
                 })
-                .catch(err => {
+                .catch((err) => {
                     console.log(err);
+                    setErrorMsg(err.response.data.errorMessage)
                 });
         }
     };
@@ -272,7 +281,6 @@ const AdminDashboard = () => {
 
     return (
         <section>
-            {JSON.stringify(productData)}
             {showHeader()}
             {showActionBtns()}
             {showCategoryModal()}
